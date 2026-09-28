@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Live Editor – Gymkhana CMS</title>
+    <link rel="icon" type="image/png" href="../assets/images/wuj.jpg" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body class="editor-body">
+
+    <!-- ═══ TOOLBAR ═══ -->
+    <div class="editor-toolbar">
+        <div class="ed-left">
+            <a href="index.html" class="ed-back">
+                <i class="fas fa-arrow-left"></i> Dashboard
+            </a>
+            <span class="ed-path" id="pagePath">Loading...</span>
+        </div>
+        <div class="ed-center">
+            <button id="editToggle" class="ed-btn">
+                <i class="fas fa-edit"></i> Edit: OFF
+            </button>
+        </div>
+        <div class="ed-right">
+            <button id="saveBtn" class="ed-btn save" disabled>
+                <i class="fas fa-save"></i> Save
+            </button>
+            <button id="reloadBtn" class="ed-btn">
+                <i class="fas fa-sync-alt"></i> Reload
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══ STATUS BAR ═══ -->
+    <div class="editor-status">
+        <span id="statusMsg">Ready</span>
+        <span id="changeCount">0 changes</span>
+    </div>
+
+    <!-- ═══ LIVE PREVIEW IFRAME ═══ -->
+    <div class="editor-frame-wrap">
+        <iframe id="pageFrame" src="" frameborder="0"></iframe>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="cms.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const pagePath = params.get('page') || '/index.html';
+            document.getElementById('pagePath').textContent = pagePath;
+            CMSEditor.init(pagePath);
+        });
+    </script>
+
+</body>
+</html>

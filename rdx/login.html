@@ -3,109 +3,88 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Login – Popup Manager</title>
+    <title>Admin Login – Gymkhana CMS</title>
     <link rel="icon" type="image/png" href="../assets/images/wuj.jpg" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
-<body>
+<body class="login-body">
 
-<div class="login-container">
-    <div class="login-card">
-        <img src="../assets/images/wuj.jpg" alt="Logo" class="login-logo" />
-        <h1>Popup Manager</h1>
-        <p>Students' Gymkhana IIT Kanpur</p>
-        
-        <div id="loginMessage" class="login-message"></div>
-        
-        <button id="googleLoginBtn" class="btn-google">
-            <i class="fab fa-google"></i> Sign in with Google
-        </button>
-        
-        <div id="loadingSpinner" class="spinner hidden">
-            <i class="fas fa-spinner fa-spin"></i> Authenticating...
-        </div>
-        
-        <div class="login-footer">
-            <small>⚠️ Only authorized admins can access this portal.</small>
+    <div class="login-wrap">
+        <div class="login-card">
+            <img src="../assets/images/wuj.jpg" alt="Logo" class="login-logo" onerror="this.style.display='none'">
+            <h1>⚡ Admin Login</h1>
+            <p>Students' Gymkhana CMS</p>
+
+            <button id="googleBtn" class="btn-google">
+                <i class="fab fa-google"></i> Sign in with Google
+            </button>
+
+            <div id="loginMsg" class="login-msg"></div>
+
+            <div class="login-footer">
+                <i class="fas fa-shield-alt"></i>
+                Only authorized admins can access this panel
+            </div>
         </div>
     </div>
-</div>
 
-<!-- ====== FIREBASE SDK ====== -->
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script>
+        const FIREBASE_CONFIG = {
+            apiKey: "AIzaSyDdr1WNCA-DPYo5N1Ea0uH_hA9PfkRYyX8",
+            authDomain: "gymkhanaiitk.firebaseapp.com",
+            databaseURL: "https://gymkhanaiitk-default-rtdb.firebaseio.com",
+            projectId: "gymkhanaiitk",
+            storageBucket: "gymkhanaiitk.firebasestorage.app",
+            messagingSenderId: "389270259342",
+            appId: "1:389270259342:web:65e918f934c8cc83b6ebdf"
+        };
+        const ALLOWED_EMAIL = "gymkhana.iitkanpur@gmail.com";
 
-<script>
-    // ====== FIREBASE CONFIG ======
-    const firebaseConfig = {
-        apiKey: "AIzaSyDdr1WNCA-DPYo5N1Ea0uH_hA9PfkRYyX8",
-        authDomain: "gymkhanaiitk.firebaseapp.com",
-        databaseURL: "https://gymkhanaiitk-default-rtdb.firebaseio.com",
-        projectId: "gymkhanaiitk",
-        storageBucket: "gymkhanaiitk.firebasestorage.app",
-        messagingSenderId: "389270259342",
-        appId: "1:389270259342:web:65e918f934c8cc83b6ebdf",
-        measurementId: "G-4619G68V49"
-    };
+        firebase.initializeApp(FIREBASE_CONFIG);
+        const auth = firebase.auth();
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const provider = new firebase.auth.GoogleAuthProvider();
+        const googleBtn = document.getElementById('googleBtn');
+        const loginMsg = document.getElementById('loginMsg');
 
-    // ====== ALLOWED EMAIL (SIRF YEHI LOGIN KAR SAKTA HAI) ======
-    const ALLOWED_EMAIL = "gymkhana.iitkanpur@gmail.com";
-
-    const loginMessage = document.getElementById('loginMessage');
-    const googleBtn = document.getElementById('googleLoginBtn');
-    const loadingSpinner = document.getElementById('loadingSpinner');
-
-    function showMessage(text, type = 'error') {
-        loginMessage.textContent = text;
-        loginMessage.className = 'login-message ' + type;
-    }
-
-    function hideMessage() {
-        loginMessage.className = 'login-message';
-        loginMessage.textContent = '';
-    }
-
-    googleBtn.addEventListener('click', () => {
-        hideMessage();
-        googleBtn.disabled = true;
-        loadingSpinner.classList.remove('hidden');
-
-        auth.signInWithPopup(provider)
-            .then((result) => {
-                const user = result.user;
-                if (user.email === ALLOWED_EMAIL) {
-                    showMessage('✅ Login successful! Redirecting...', 'success');
-                    setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 1000);
-                } else {
-                    showMessage('❌ Access Denied! Only authorized admins can access this portal.', 'error');
-                    auth.signOut();
-                    setTimeout(() => {
-                        googleBtn.disabled = false;
-                        loadingSpinner.classList.add('hidden');
-                    }, 2000);
-                }
-            })
-            .catch((error) => {
-                showMessage('❌ Login failed: ' + error.message, 'error');
-                googleBtn.disabled = false;
-                loadingSpinner.classList.add('hidden');
-            });
-    });
-
-    // ====== CHECK AUTH STATE ======
-    auth.onAuthStateChanged((user) => {
-        if (user && user.email === ALLOWED_EMAIL) {
-            window.location.href = 'index.html';
+        function showMsg(text, type) {
+            loginMsg.textContent = text;
+            loginMsg.className = 'login-msg ' + type;
         }
-    });
-</script>
+
+        googleBtn.addEventListener('click', async () => {
+            googleBtn.disabled = true;
+            googleBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                provider.setCustomParameters({ prompt: 'select_account' });
+                const result = await auth.signInWithPopup(provider);
+
+                if (result.user.email === ALLOWED_EMAIL) {
+                    showMsg('✅ Welcome! Redirecting...', 'success');
+                    setTimeout(() => window.location.href = 'index.html', 800);
+                } else {
+                    showMsg('❌ Access Denied! Only authorized admin.', 'error');
+                    await auth.signOut();
+                    googleBtn.disabled = false;
+                    googleBtn.innerHTML = '<i class="fab fa-google"></i> Sign in with Google';
+                }
+            } catch (err) {
+                showMsg('❌ ' + err.message, 'error');
+                googleBtn.disabled = false;
+                googleBtn.innerHTML = '<i class="fab fa-google"></i> Sign in with Google';
+            }
+        });
+
+        auth.onAuthStateChanged(user => {
+            if (user && user.email === ALLOWED_EMAIL) {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
 
 </body>
 </html>

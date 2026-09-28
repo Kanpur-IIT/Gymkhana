@@ -3,169 +3,471 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Popup Manager – Gymkhana IITK</title>
+    <title>CMS Dashboard – Gymkhana</title>
     <link rel="icon" type="image/png" href="../assets/images/wuj.jpg" />
-    <link rel="stylesheet" href="rdx/style.css" />
+    <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
-<body>
+<body class="dashboard-body">
 
-<div class="dashboard-container">
-    <div class="dashboard-card">
-
+    <div class="dashboard-wrap">
         <!-- HEADER -->
-        <div class="dashboard-header">
+        <div class="dash-header">
             <div>
-                <h1>📢 Popup <span>Manager</span></h1>
-                <p style="color:#8899bb; font-size:0.8rem;">Create, manage & schedule website popups</p>
+                <h1>⚡ Gymkhana <span>CMS</span></h1>
+                <p>Edit pages, popups, themes — no code required</p>
             </div>
-            <div class="user-info">
-                <span id="userInfo"></span>
+            <div class="dash-user">
+                <span id="userEmail">Loading...</span>
                 <button id="logoutBtn" class="btn-logout">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </button>
             </div>
         </div>
 
-        <!-- ====== FORM ====== -->
-        <form id="popupForm" class="cms-form">
-            <h3 id="formTitle" style="color:#ffd700; font-size:1.1rem; margin-bottom:12px;">📝 Create New Popup</h3>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="popupTitle">Title *</label>
-                    <input type="text" id="popupTitle" placeholder="e.g. Techkriti 2026" required />
+        <!-- TABS -->
+        <div class="dash-tabs">
+            <button class="dash-tab active" data-tab="pages"><i class="fas fa-file-code"></i> Pages</button>
+            <button class="dash-tab" data-tab="popups"><i class="fas fa-bullhorn"></i> Popups</button>
+            <button class="dash-tab" data-tab="themes"><i class="fas fa-palette"></i> Themes</button>
+        </div>
+
+        <!-- ═══ TAB 1: PAGES ═══ -->
+        <div id="tab-pages" class="tab-content active">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search pages... (e.g., aerospace, techkriti)">
+            <div class="dash-stats">
+                <div class="stat-box">
+                    <i class="fas fa-file-code"></i>
+                    <div>
+                        <div class="stat-num" id="totalPages">0</div>
+                        <div class="stat-label">Total Pages</div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="popupType">Type</label>
-                    <select id="popupType">
-                        <option value="info">ℹ️ Information</option>
-                        <option value="warning">⚠️ Warning</option>
-                        <option value="success">✅ Success</option>
-                        <option value="event">🎉 Event</option>
-                        <option value="urgent">🚨 Urgent</option>
-                    </select>
+                <div class="stat-box">
+                    <i class="fas fa-edit"></i>
+                    <div>
+                        <div class="stat-num" id="editedPages">0</div>
+                        <div class="stat-label">Edited Pages</div>
+                    </div>
                 </div>
             </div>
-
-            <div class="form-group" style="margin-bottom:12px;">
-                <label for="popupMessage">Message *</label>
-                <textarea id="popupMessage" placeholder="Enter popup message..." required></textarea>
+            <div id="pagesGrid" class="pages-grid">
+                <div class="loading-state"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
             </div>
+        </div>
 
-            <!-- ====== NEW: Code Banner Field ====== -->
-            <div class="form-group" style="margin-bottom:12px;">
-                <label for="popupCode">📝 Custom HTML / Banner Code (Optional)</label>
-                <textarea id="popupCode" placeholder="<div style='background:red; padding:10px;'>Custom Banner</div>" style="min-height:80px;"></textarea>
-                <small style="color:#556; font-size:0.7rem;">Paste any HTML code here (banner, countdown, video, etc.)</small>
-            </div>
+        <!-- ═══ TAB 2: POPUPS ═══ -->
+        <div id="tab-popups" class="tab-content">
+            <div class="popup-grid-2">
+                <!-- FORM -->
+                <div class="popup-form-wrap">
+                    <h2 id="popupFormTitle">📢 Create New Popup</h2>
+                    <form id="popupForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Title *</label>
+                                <input type="text" id="popupTitle" placeholder="e.g. Techkriti 2026" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Type</label>
+                                <select id="popupType">
+                                    <option value="info">ℹ️ Info</option>
+                                    <option value="event">🎉 Event</option>
+                                    <option value="warning">⚠️ Warning</option>
+                                    <option value="urgent">🚨 Urgent</option>
+                                    <option value="success">✅ Success</option>
+                                </select>
+                            </div>
+                        </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="popupLink">Button Link</label>
-                    <input type="url" id="popupLink" placeholder="https://..." />
-                </div>
-                <div class="form-group">
-                    <label for="popupBtnText">Button Text</label>
-                    <input type="text" id="popupBtnText" placeholder="Learn More" value="Learn More" />
-                </div>
-            </div>
+                        <div class="form-group">
+                            <label>Message *</label>
+                            <textarea id="popupMessage" placeholder="Enter popup message..." required></textarea>
+                        </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="popupImage">Image URL</label>
-                    <input type="url" id="popupImage" placeholder="https://example.com/banner.jpg" />
-                </div>
-                <div class="form-group">
-                    <label for="popupExpiry">Expiry Date</label>
-                    <input type="date" id="popupExpiry" />
-                </div>
-            </div>
+                        <div class="form-group">
+                            <label>Custom HTML / Banner Code (Optional)</label>
+                            <textarea id="popupCode" placeholder="<div>Custom HTML here</div>" style="min-height:60px; font-family:monospace; font-size:0.8rem;"></textarea>
+                        </div>
 
-            <!-- ====== NEW: Time Fields ====== -->
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="popupStartDate">Start Date</label>
-                    <input type="date" id="popupStartDate" />
-                </div>
-                <div class="form-group">
-                    <label for="popupStartTime">Start Time (Optional)</label>
-                    <input type="time" id="popupStartTime" />
-                </div>
-            </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Button Link</label>
+                                <input type="url" id="popupLink" placeholder="https://...">
+                            </div>
+                            <div class="form-group">
+                                <label>Button Text</label>
+                                <input type="text" id="popupBtnText" value="Learn More">
+                            </div>
+                        </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="popupEndDate">End Date</label>
-                    <input type="date" id="popupEndDate" />
-                </div>
-                <div class="form-group">
-                    <label for="popupEndTime">End Time (Optional)</label>
-                    <input type="time" id="popupEndTime" />
-                </div>
-            </div>
+                        <div class="form-group">
+                            <label>Image URL (Optional)</label>
+                            <input type="url" id="popupImage" placeholder="https://...">
+                        </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="popupStatus">Status</label>
-                    <select id="popupStatus">
-                        <option value="active">✅ Active</option>
-                        <option value="inactive">❌ Inactive</option>
-                        <option value="scheduled">📅 Scheduled</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="popupPriority">Priority</label>
-                    <select id="popupPriority">
-                        <option value="normal">Normal</option>
-                        <option value="high">🔥 High</option>
-                        <option value="urgent">🚨 Urgent</option>
-                    </select>
-                </div>
-            </div>
+                        <!-- TARGET PAGES -->
+                        <div class="form-group target-group">
+                            <label>🎯 Show on Which Pages? *</label>
+                            <div class="target-options">
+                                <label class="target-opt">
+                                    <input type="radio" name="targetType" value="all" checked>
+                                    <span>🌐 All Pages</span>
+                                </label>
+                                <label class="target-opt">
+                                    <input type="radio" name="targetType" value="specific">
+                                    <span>📄 Specific Pages</span>
+                                </label>
+                                <label class="target-opt">
+                                    <input type="radio" name="targetType" value="pattern">
+                                    <span>🔗 URL Pattern</span>
+                                </label>
+                            </div>
 
-            <div class="form-actions">
-                <button type="submit" id="popupSubmitBtn" class="btn-submit">
-                    <i class="fas fa-bullhorn"></i> Publish Popup
-                </button>
-                <button type="button" id="popupCancelBtn" class="btn-cancel hidden-form" onclick="cancelPopupEdit()">
-                    Cancel
-                </button>
-            </div>
-        </form>
+                            <div id="specificPagesSelect" style="display:none;">
+                                <input type="text" id="pageFilter" class="small-input" placeholder="Filter pages...">
+                                <div id="pagesCheckboxes" class="pages-checkboxes"></div>
+                            </div>
 
-        <!-- ====== LIST ====== -->
-        <div class="sections-list">
-            <h2><i class="fas fa-list"></i> All Popups</h2>
-            <div id="popupsContainer">
-                <div class="empty-state">
-                    <i class="fas fa-spinner fa-spin"></i>
-                    <p>Loading...</p>
+                            <div id="patternInput" style="display:none;">
+                                <input type="text" id="urlPattern" class="small-input" placeholder="e.g. /branches/* or /fests/*">
+                                <small style="color:#556; font-size:0.7rem;">Use * as wildcard</small>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Start Date</label>
+                                <input type="date" id="popupStartDate">
+                            </div>
+                            <div class="form-group">
+                                <label>Start Time</label>
+                                <input type="time" id="popupStartTime">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>End Date</label>
+                                <input type="date" id="popupEndDate">
+                            </div>
+                            <div class="form-group">
+                                <label>End Time</label>
+                                <input type="time" id="popupEndTime">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select id="popupStatus">
+                                    <option value="active">✅ Active</option>
+                                    <option value="inactive">❌ Inactive</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Priority</label>
+                                <select id="popupPriority">
+                                    <option value="normal">Normal</option>
+                                    <option value="high">High</option>
+                                    <option value="urgent">🔥 Urgent</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" id="popupSubmitBtn" class="btn-submit">
+                                <i class="fas fa-bullhorn"></i> Publish Popup
+                            </button>
+                            <button type="button" id="popupCancelBtn" class="btn-cancel hidden" onclick="PopupManager.resetForm()">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- LIST -->
+                <div class="popup-list-wrap">
+                    <h2>📋 All Popups</h2>
+                    <div id="popupsList">
+                        <div class="loading-state"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- ═══ TAB 3: THEMES ═══ -->
+        <div id="tab-themes" class="tab-content">
+            <div class="themes-wrap">
+                <div id="activeThemeInfo"></div>
+
+                <h2 style="color:#ffd700;margin:24px 0 16px;">🎨 Quick Themes</h2>
+                <p style="color:#8899bb;font-size:0.85rem;margin-bottom:16px;">
+                    One-click theme change for all 114+ pages
+                </p>
+
+                <div class="themes-grid">
+                    <div class="theme-preset" data-theme="default">
+                        <div class="theme-preview" style="background:linear-gradient(135deg,#0a0a1a,#1a1a2e);border:2px solid #ffd700;">🏛️</div>
+                        <div class="theme-name">Default</div>
+                        <div class="theme-desc">Gold</div>
+                    </div>
+                    <div class="theme-preset" data-theme="diwali">
+                        <div class="theme-preview" style="background:linear-gradient(135deg,#1a0a00,#2a1000);border:2px solid #ff9933;">🪔</div>
+                        <div class="theme-name">Diwali</div>
+                        <div class="theme-desc">Festival of lights</div>
+                    </div>
+                    <div class="theme-preset" data-theme="holi">
+                        <div class="theme-preview" style="background:linear-gradient(135deg,#1a001a,#2a002a);border:2px solid #ff6b9d;">🎨</div>
+                        <div class="theme-name">Holi</div>
+                        <div class="theme-desc">Festival of colors</div>
+                    </div>
+                    <div class="theme-preset" data-theme="independence">
+                        <div class="theme-preview" style="background:linear-gradient(135deg,#0a1a0a,#1a0a0a);border:2px solid #ff9933;">🇮🇳</div>
+                        <div class="theme-name">Independence</div>
+                        <div class="theme-desc">15 August</div>
+                    </div>
+                    <div class="theme-preset" data-theme="newyear">
+                        <div class="theme-preview" style="background:linear-gradient(135deg,#0a0a2a,#1a0a2a);border:2px solid #6ba6ff;">🎉</div>
+                        <div class="theme-name">New Year</div>
+                        <div class="theme-desc">1 January</div>
+                    </div>
+                    <div class="theme-preset" data-theme="christmas">
+                        <div class="theme-preview" style="background:linear-gradient(135deg,#0a1a0a,#1a0a0a);border:2px solid #ff5555;">🎄</div>
+                        <div class="theme-name">Christmas</div>
+                        <div class="theme-desc">25 December</div>
+                    </div>
+                    <div class="theme-preset" data-theme="monsoon">
+                        <div class="theme-preview" style="background:linear-gradient(135deg,#0a1a2a,#0a0a1a);border:2px solid #6ba6ff;">🌧️</div>
+                        <div class="theme-name">Monsoon</div>
+                        <div class="theme-desc">Rainy season</div>
+                    </div>
+                </div>
+
+                <h2 style="color:#ffd700;margin:32px 0 16px;">✏️ Custom CSS</h2>
+                <div class="custom-theme-box">
+                    <div class="form-group">
+                        <label>Theme Name</label>
+                        <input type="text" id="themeCustomName" placeholder="e.g. My Custom Theme">
+                    </div>
+                    <div class="form-group">
+                        <label>Custom CSS Code</label>
+                        <textarea id="themeCustomCss" placeholder="/* Paste your custom CSS here */
+body { background: #000 !important; }
+.hero h1 { color: #00ff00 !important; }" style="min-height:200px; font-family:monospace; font-size:0.85rem;"></textarea>
+                    </div>
+                    <button id="applyCustomTheme" class="btn-submit" style="width:100%; margin-top:12px;">
+                        <i class="fas fa-paint-brush"></i> Apply Custom Theme to All Pages
+                    </button>
+                    <button id="resetTheme" class="btn-cancel" style="width:100%; margin-top:8px;">
+                        🔄 Reset to Default Theme
+                    </button>
+                </div>
+
+                <div id="themeNotify" class="theme-notify"></div>
+            </div>
+        </div>
     </div>
-</div>
 
-<!-- ====== FIREBASE SDK ====== -->
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
-<script>
-    function cancelPopupEdit() {
-        document.getElementById('popupForm').reset();
-        document.getElementById('formTitle').textContent = '📝 Create New Popup';
-        document.getElementById('popupSubmitBtn').textContent = 'Publish Popup';
-        document.getElementById('popupSubmitBtn').disabled = false;
-        document.getElementById('popupCancelBtn').classList.add('hidden-form');
-        editingPopupId = null;
-    }
-    window.cancelPopupEdit = cancelPopupEdit;
-</script>
+    <!-- Managers -->
+    <script src="popup.js"></script>
+    <script src="themes.js"></script>
 
-<script src="rdx/app.js"></script>
+    <!-- Dashboard Logic -->
+    <script>
+        const FIREBASE_CONFIG = {
+            apiKey: "AIzaSyDdr1WNCA-DPYo5N1Ea0uH_hA9PfkRYyX8",
+            authDomain: "gymkhanaiitk.firebaseapp.com",
+            databaseURL: "https://gymkhanaiitk-default-rtdb.firebaseio.com",
+            projectId: "gymkhanaiitk",
+            storageBucket: "gymkhanaiitk.firebasestorage.app",
+            messagingSenderId: "389270259342",
+            appId: "1:389270259342:web:65e918f934c8cc83b6ebdf"
+        };
+        const ALLOWED_EMAIL = "gymkhana.iitkanpur@gmail.com";
+
+        if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // ═══ COMPLETE PAGE LIST ═══
+        const ALL_PAGES = [
+            // MAIN
+            { name: 'Home', path: '/index.html', cat: 'Main' },
+            { name: 'Gymkhana', path: '/gymkhana/gymkhana.html', cat: 'Main' },
+            { name: 'Councils', path: '/councils/councils.html', cat: 'Main' },
+            { name: 'Cells', path: '/cells/cells.html', cat: 'Main' },
+            { name: 'Fests', path: '/fests/fests.html', cat: 'Main' },
+            { name: 'Branches', path: '/branches/branches.html', cat: 'Main' },
+            { name: 'Senate', path: '/senate/senate.html', cat: 'Main' },
+            { name: 'Halls', path: '/halls/halls.html', cat: 'Main' },
+            { name: 'Gallery', path: '/gallery/gallery.html', cat: 'Main' },
+            { name: 'Contact', path: '/contact/contact.html', cat: 'Main' },
+            { name: 'Alumni', path: '/alumni/alumni.html', cat: 'Main' },
+            { name: 'Collection', path: '/collection/collection.html', cat: 'Main' },
+
+            // BRANCHES
+            { name: 'Aerospace', path: '/branches/aerospace/aerospace.html', cat: 'Branches' },
+            { name: 'Biological Sciences', path: '/branches/biological-sciences/biological-sciences.html', cat: 'Branches' },
+            { name: 'Chemical', path: '/branches/chemical/chemical.html', cat: 'Branches' },
+            { name: 'Chemistry', path: '/branches/chemistry/chemistry.html', cat: 'Branches' },
+            { name: 'Civil', path: '/branches/civil/civil.html', cat: 'Branches' },
+            { name: 'Computer Science', path: '/branches/computer-science/computer-science.html', cat: 'Branches' },
+            { name: 'Earth Sciences', path: '/branches/earth-sciences/earth-sciences.html', cat: 'Branches' },
+            { name: 'Economics', path: '/branches/economics/economics.html', cat: 'Branches' },
+            { name: 'Electrical', path: '/branches/electrical/electrical.html', cat: 'Branches' },
+            { name: 'Humanities', path: '/branches/humanities/humanities.html', cat: 'Branches' },
+            { name: 'Industrial Management', path: '/branches/industrial-management/industrial-management.html', cat: 'Branches' },
+            { name: 'Materials Science', path: '/branches/materials-science/materials-science.html', cat: 'Branches' },
+            { name: 'Mathematics & Statistics', path: '/branches/mathematics-statistics/mathematics-statistics.html', cat: 'Branches' },
+            { name: 'Mechanical', path: '/branches/mechanical/mechanical.html', cat: 'Branches' },
+            { name: 'Physics', path: '/branches/physics/physics.html', cat: 'Branches' },
+
+            // CELLS
+            { name: 'CWC', path: '/cells/cwc/cwc.html', cat: 'Cells' },
+            { name: 'EC', path: '/cells/ec/ec.html', cat: 'Cells' },
+            { name: 'E-Cell', path: '/cells/ecell/ecell.html', cat: 'Cells' },
+            { name: 'Outreach', path: '/cells/outreach/outreach.html', cat: 'Cells' },
+            { name: 'Vox', path: '/cells/vox/vox.html', cat: 'Cells' },
+
+            // COUNCILS
+            { name: 'AnC', path: '/councils/anc/anc.html', cat: 'Councils' },
+            { name: 'GnS', path: '/councils/gns/gns.html', cat: 'Councils' },
+            { name: 'MnC', path: '/councils/mnc/mnc.html', cat: 'Councils' },
+            { name: 'SnT', path: '/councils/snt/snt.html', cat: 'Councils' },
+            { name: 'DoMS', path: '/councils/doms/doms.html', cat: 'Councils' },
+
+            // FESTS
+            { name: 'Antaragni', path: '/fests/antaragni/antaragni.html', cat: 'Fests' },
+            { name: 'Techkriti', path: '/fests/techkriti/techkriti.html', cat: 'Fests' },
+            { name: 'Udghosh', path: '/fests/udghosh/udghosh.html', cat: 'Fests' },
+
+            // HALLS
+            { name: 'Hall 1', path: '/halls/hall-1/hall-1.html', cat: 'Halls' },
+            { name: 'Hall 2', path: '/halls/hall-2/hall-2.html', cat: 'Halls' },
+            { name: 'Hall 3', path: '/halls/hall-3/hall-3.html', cat: 'Halls' },
+            { name: 'Hall 4', path: '/halls/hall-4/hall-4.html', cat: 'Halls' },
+            { name: 'Hall 5', path: '/halls/hall-5/hall-5.html', cat: 'Halls' },
+            { name: 'Hall 6', path: '/halls/hall-6/hall-6.html', cat: 'Halls' },
+            { name: 'Hall 7', path: '/halls/hall-7/hall-7.html', cat: 'Halls' },
+            { name: 'Hall 8', path: '/halls/hall-8/hall-8.html', cat: 'Halls' },
+            { name: 'Hall 9', path: '/halls/hall-9/hall-9.html', cat: 'Halls' },
+            { name: 'Hall 10', path: '/halls/hall-10/hall-10.html', cat: 'Halls' },
+            { name: 'Hall 11', path: '/halls/hall-11/hall-11.html', cat: 'Halls' },
+            { name: 'Hall 12', path: '/halls/hall-12/hall-12.html', cat: 'Halls' },
+            { name: 'Hall 13', path: '/halls/hall-13/hall-13.html', cat: 'Halls' },
+            { name: 'GH-1', path: '/halls/gh-1/gh-1.html', cat: 'Halls' },
+            { name: 'GH Tower', path: '/halls/gh-tower/gh-tower.html', cat: 'Halls' },
+
+            // OTHERS
+            { name: 'EMC', path: '/others/emc.html', cat: 'Others' },
+            { name: 'SMC', path: '/others/smc.html', cat: 'Others' },
+            { name: 'TAC', path: '/others/tac.html', cat: 'Others' },
+            { name: 'DoMS (Others)', path: '/others/doms.html', cat: 'Others' },
+            { name: 'ICFMCF', path: '/others/icfmcf.html', cat: 'Others' },
+            { name: 'Prabandhan', path: '/others/prabandhan.html', cat: 'Others' },
+            { name: 'SIIC', path: '/others/siic.html', cat: 'Others' },
+            { name: 'C3i Hub', path: '/others/c3i.html', cat: 'Others' },
+            { name: 'FLEXE', path: '/others/flexe.html', cat: 'Others' },
+            { name: 'MedTech', path: '/others/medtech.html', cat: 'Others' },
+            { name: 'Blockchain', path: '/others/blockchain.html', cat: 'Others' },
+            { name: 'Gangwal', path: '/others/gangwal.html', cat: 'Others' },
+            { name: 'SBERTC', path: '/others/sbertc.html', cat: 'Others' },
+            { name: 'RTSA', path: '/others/rts.html', cat: 'Others' },
+            { name: 'Karma', path: '/others/karma.html', cat: 'Others' },
+            { name: 'Paridhi', path: '/others/paridhi.html', cat: 'Others' },
+            { name: 'e-Masters', path: '/others/e-masters.html', cat: 'Others' },
+            { name: 'MooKIT', path: '/others/mookit.html', cat: 'Others' },
+            { name: 'Bhu-Parikshak', path: '/others/bhu-parikshak.html', cat: 'Others' },
+
+            // COLLECTION
+            { name: 'Gymkhana Forms', path: '/collection/gymkhana-forms/forms.html', cat: 'Collection' },
+            { name: 'Rules', path: '/collection/rules/rules.html', cat: 'Collection' },
+            { name: 'Constitution', path: '/collection/rules/consti.html', cat: 'Collection' },
+            { name: 'Appendix 1', path: '/collection/rules/appendix1.html', cat: 'Collection' },
+            { name: 'Appendix 2', path: '/collection/rules/appendix2.html', cat: 'Collection' }
+        ];
+
+        let currentUser = null;
+
+        // ═══ AUTH ═══
+        auth.onAuthStateChanged(user => {
+            if (user && user.email === ALLOWED_EMAIL) {
+                currentUser = user;
+                document.getElementById('userEmail').textContent = user.email;
+                PopupManager.init(user, db, ALL_PAGES);
+                ThemeManager.init(user, db);
+                loadPages();
+            } else {
+                window.location.href = 'login.html';
+            }
+        });
+
+        // ═══ TABS ═══
+        document.querySelectorAll('.dash-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.dash-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        // ═══ LOAD PAGES ═══
+        async function loadPages() {
+            document.getElementById('totalPages').textContent = ALL_PAGES.length;
+            let editedPaths = new Set();
+            try {
+                const snap = await db.collection('pages').get();
+                snap.forEach(doc => editedPaths.add(decodeURIComponent(doc.id)));
+            } catch (e) { console.warn('Pages load error:', e); }
+            document.getElementById('editedPages').textContent = editedPaths.size;
+            renderPages(ALL_PAGES, editedPaths);
+        }
+
+        function renderPages(pages, edited) {
+            const grid = document.getElementById('pagesGrid');
+            if (pages.length === 0) {
+                grid.innerHTML = '<div class="loading-state"><i class="fas fa-search"></i> No pages found</div>';
+                return;
+            }
+            grid.innerHTML = pages.map(p => {
+                const isEdited = edited.has(p.path);
+                return `
+                    <a href="editor.html?page=${encodeURIComponent(p.path)}" class="page-card ${isEdited ? 'edited' : ''}">
+                        <div class="page-cat">${p.cat}</div>
+                        <div class="page-name">${p.name}</div>
+                        <div class="page-path">${p.path}</div>
+                        ${isEdited ? '<div class="edited-badge">✏️ Edited</div>' : ''}
+                    </a>
+                `;
+            }).join('');
+        }
+
+        document.getElementById('searchInput').addEventListener('input', e => {
+            const q = e.target.value.toLowerCase();
+            const filtered = ALL_PAGES.filter(p =>
+                p.name.toLowerCase().includes(q) ||
+                p.path.toLowerCase().includes(q) ||
+                p.cat.toLowerCase().includes(q)
+            );
+            renderPages(filtered, new Set());
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            if (confirm('Logout from CMS?')) {
+                auth.signOut().then(() => window.location.href = 'login.html');
+            }
+        });
+
+        // Expose globally
+        window.ALL_PAGES = ALL_PAGES;
+    </script>
 
 </body>
 </html>
