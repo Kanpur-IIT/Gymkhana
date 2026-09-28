@@ -333,5 +333,138 @@
     })();
 </script>
 
+<!-- ═══════════════ GYMKHANA CMS (VISITOR ONLY) ═══════════════ -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script>
+(function(){
+'use strict';
+var CFG = {
+apiKey: "AIzaSyDdr1WNCA-DPYo5N1Ea0uH_hA9PfkRYyX8",
+authDomain: "gymkhanaiitk.firebaseapp.com",
+databaseURL: "https://gymkhanaiitk-default-rtdb.firebaseio.com",
+projectId: "gymkhanaiitk",
+storageBucket: "gymkhanaiitk.firebasestorage.app",
+messagingSenderId: "389270259342",
+appId: "1:389270259342:web:65e918f934c8cc83b6ebdf"
+};
+function ready(cb,t){t=t||0;if(typeof firebase!=='undefined'&&firebase.apps)return cb();if(t<50)setTimeout(function(){ready(cb,t+1)},100);}
+ready(function(){
+if(!firebase.apps.length)firebase.initializeApp(CFG);
+var db=firebase.firestore();
+var path=window.location.pathname;
+
+// 1. THEME
+db.collection('settings').doc('activeTheme').get().then(function(doc){
+if(!doc.exists)return;
+var d=doc.data();
+if(!d.css||!d.css.trim())return;
+var s=document.createElement('style');
+s.id='cms-theme';
+s.textContent=d.css;
+document.head.appendChild(s);
+}).catch(function(){});
+
+// 2. TAG ELEMENTS
+var tags=['h1','h2','h3','h4','h5','h6','p','span','a','li'];
+tags.forEach(function(tag){
+document.querySelectorAll(tag).forEach(function(el,idx){
+if(el.closest('nav')||el.closest('footer'))return;
+if(el.closest('script')||el.closest('style'))return;
+el.dataset.cmsId=tag+'_'+idx;
+});
+});
+document.querySelectorAll('img').forEach(function(img,idx){
+if(img.closest('nav')||img.closest('footer'))return;
+img.dataset.cmsId='img_'+idx;
+});
+document.querySelectorAll('section,.content-section,.card-glass').forEach(function(s,idx){
+if(s.closest('nav')||s.closest('footer'))return;
+s.dataset.cmsSection=idx;
+});
+
+// 3. LOAD CONTENT
+db.collection('pages').doc(encodeURIComponent(path)).get().then(function(doc){
+if(!doc.exists)return;
+var data=doc.data();
+if(data.elements){
+data.elements.forEach(function(item){
+var el=document.querySelector('[data-cms-id="'+item.id+'"]');
+if(!el)return;
+if(item.type==='text')el.innerHTML=item.value;
+else if(item.type==='image')el.src=item.value;
+});
+}
+if(data.addedSections){
+data.addedSections.forEach(function(sec){
+var w=document.createElement('div');
+w.innerHTML=sec.html;
+document.body.appendChild(w);
+});
+}
+if(data.deletedSections){
+data.deletedSections.forEach(function(idx){
+var s=document.querySelector('[data-cms-section="'+idx+'"]');
+if(s)s.style.display='none';
+});
+}
+}).catch(function(){});
+
+// 4. POPUP
+function match(p){
+if(p.targetType==='all')return true;
+if(p.targetType==='specific'&&p.targetPages)return p.targetPages.indexOf(path)>-1;
+if(p.targetType==='pattern'&&p.urlPattern){
+var pat=p.urlPattern.replace(/\*/g,'.*');
+return new RegExp('^'+pat+'$').test(path);
+}
+return false;
+}
+function active(p){
+var n=new Date();
+var today=n.toISOString().split('T')[0];
+var ct=n.toTimeString().slice(0,5);
+if(p.status!=='active')return false;
+if(p.startDate&&p.startDate>today)return false;
+if(p.startTime&&p.startDate===today&&p.startTime>ct)return false;
+if(p.endDate&&p.endDate<today)return false;
+if(p.endTime&&p.endDate===today&&p.endTime<ct)return false;
+return true;
+}
+function esc(s){if(!s)return '';var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+
+db.collection('popups').where('status','==','active').get().then(function(snap){
+var best=null;
+snap.forEach(function(doc){
+var p=doc.data();p.id=doc.id;
+if(match(p)&&active(p)){if(!best||p.priority==='urgent')best=p;}
+});
+if(best&&!sessionStorage.getItem('cms_popup_'+best.id)){
+setTimeout(function(){
+if(document.getElementById('cmsPopup'))return;
+var type=best.type||'event';
+var badges={info:'ℹ️ Info',event:'🎉 Event',warning:'⚠️ Warning',urgent:'🚨 Urgent',success:'✅ Success'};
+var ov=document.createElement('div');
+ov.id='cmsPopup';
+ov.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);z-index:99999;display:flex;align-items:center;justify-content:center;font-family:Segoe UI,sans-serif;';
+var h='<div style="background:rgba(18,28,50,0.98);border:1px solid rgba(255,215,0,0.3);border-radius:24px;padding:32px;max-width:500px;width:90%;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.8);color:#fff;">';
+h+='<button onclick="document.getElementById(\'cmsPopup\').remove()" style="position:absolute;top:12px;right:16px;background:rgba(255,255,255,0.05);border:none;color:#b0bcc8;font-size:1.4rem;cursor:pointer;border-radius:50%;width:36px;height:36px;">✕</button>';
+h+='<span style="display:inline-block;padding:4px 14px;border-radius:20px;font-size:0.7rem;font-weight:600;text-transform:uppercase;margin-bottom:12px;background:rgba(255,215,0,0.15);color:#ffd700;">'+(badges[type]||'📢')+'</span>';
+if(best.image)h+='<img src="'+best.image+'" style="width:100%;border-radius:12px;margin-bottom:16px;max-height:200px;object-fit:cover;">';
+h+='<h2 style="font-size:1.5rem;font-weight:700;margin-bottom:8px;color:#fff;">'+esc(best.title)+'</h2>';
+if(best.code&&best.code.trim()){h+='<div>'+best.code+'</div>';}
+else{h+='<div style="color:#b0bcc8;line-height:1.6;font-size:0.95rem;margin:12px 0 16px;">'+esc(best.message)+'</div>';}
+if(best.link){h+='<a href="'+best.link+'" target="_blank" style="display:inline-block;padding:10px 28px;border-radius:40px;background:linear-gradient(135deg,#ffd700,#f0a500);color:#0a0a1a;font-weight:700;text-decoration:none;font-size:0.9rem;">'+esc(best.btnText||'Learn More')+'</a>';}
+h+='</div>';
+ov.innerHTML=h;
+document.body.appendChild(ov);
+},500);
+sessionStorage.setItem('cms_popup_'+best.id,'shown');
+}
+}).catch(function(){});
+});
+})();
+</script>
+<!-- ═══════════════ END GYMKHANA CMS ═══════════════ -->
 </body>
 </html>
