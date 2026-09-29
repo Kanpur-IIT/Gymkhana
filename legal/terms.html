@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Terms of Use – Students' Gymkhana IIT Kanpur</title>
+    <meta name="description" content="Terms of Use for Students' Gymkhana, IIT Kanpur website." />
+    <link rel="icon" type="image/png" href="../assets/images/wuj.jpg" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0a0a1a; color: #ffffff; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        #particles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .navbar { position: sticky; top: 0; z-index: 1000; background: rgba(10, 10, 26, 0.85); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255, 215, 0, 0.15); padding: 14px 0; }
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .navbar .logo { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.2rem; color: #fff; }
+        .navbar .logo img { height: 44px; border-radius: 10px; filter: drop-shadow(0 0 12px rgba(255,215,0,0.3)); }
+        .navbar .nav-links { display: flex; flex-wrap: wrap; gap: 6px 18px; list-style: none; }
+        .navbar .nav-links a { color: #b0b8d0; font-size: 0.95rem; font-weight: 500; padding: 6px 0; border-bottom: 2px solid transparent; transition: 0.25s; }
+        .navbar .nav-links a:hover { color: #ffd700; border-bottom-color: #ffd700; }
+        .navbar .social-icons { display: flex; gap: 14px; font-size: 1.15rem; }
+        .navbar .social-icons a { color: #b0b8d0; transition: 0.25s; }
+        .navbar .social-icons a:hover { color: #ffd700; transform: translateY(-2px); }
+        .hero { min-height: 25vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 40px 0 30px; background: radial-gradient(circle at top, rgba(255,215,0,0.05), transparent 70%); }
+        .hero h1 { font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #ffffff 20%, #ffd700 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 60px rgba(255, 215, 0, 0.15); }
+        .hero .last-updated { color: #8899bb; font-size: 0.85rem; margin-top: 12px; }
+        .content-section { padding: 20px 0 60px; }
+        .card-glass { background: rgba(18, 28, 50, 0.65); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 18px; padding: 32px 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        .card-glass h2 { font-size: 1.35rem; font-weight: 700; color: #ffd700; margin-top: 28px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 215, 0, 0.15); }
+        .card-glass h2:first-child { margin-top: 0; }
+        .card-glass p { color: #b0bcc8; line-height: 1.75; font-size: 0.95rem; margin-bottom: 12px; }
+        .card-glass ul { list-style: none; padding: 0; margin: 12px 0; }
+        .card-glass ul li { padding: 6px 0 6px 26px; color: #b8c0d8; position: relative; line-height: 1.6; font-size: 0.95rem; }
+        .card-glass ul li::before { content: '▸'; color: #ffd700; position: absolute; left: 0; font-weight: 700; }
+        .card-glass strong { color: #ffd700; }
+        .card-glass a { color: #ffd700; }
+        .footer { background: rgba(5, 5, 18, 0.95); backdrop-filter: blur(8px); border-top: 1px solid rgba(255, 215, 0, 0.08); padding: 44px 0 24px; margin-top: 60px; }
+        .footer .social-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 24px; margin: 16px 0 24px; }
+        .footer .social-links a { color: #8899bb; font-size: 0.95rem; transition: 0.25s; display: flex; align-items: center; gap: 8px; }
+        .footer .social-links a:hover { color: #ffd700; }
+        .footer .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 28px; font-size: 0.85rem; color: #667; }
+        .footer .footer-links a:hover { color: #ffd700; }
+        .footer .copyright { text-align: center; color: #556; font-size: 0.8rem; margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.04); }
+        @media (max-width: 768px) { .hero h1 { font-size: 2rem; } .navbar .nav-links { display: none; } .card-glass { padding: 24px 20px; } }
+    </style>
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<nav class="navbar">
+    <div class="container">
+        <a href="../index.html" class="logo">
+            <img src="../assets/images/wuj.jpg" alt="Gymkhana IITK" />
+            <span>Gymkhana IITK</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../gymkhana/gymkhana.html">Gymkhana</a></li>
+            <li><a href="../councils/councils.html">Councils</a></li>
+            <li><a href="../cells/cells.html">Cells</a></li>
+            <li><a href="../fests/fests.html">Fests</a></li>
+            <li><a href="../branches/branches.html">Branches</a></li>
+            <li><a href="../senate/senate.html">Senate</a></li>
+            <li><a href="../halls/halls.html">Hostels</a></li>
+            <li><a href="../gallery/gallery.html">Gallery</a></li>
+            <li><a href="../contact/contact.html">Contact</a></li>
+        </ul>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/gymkhanaiitk" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/IITKGymkhana" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://x.com/gymkhana_iitk" target="_blank"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.youtube.com/@gymkhana_iitk" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://linkedin.com/in/gymkhanaiitk" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.threads.com/@iitk_gymkhana" target="_blank"><i class="fab fa-threads"></i></a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <h1>Terms of Use</h1>
+        <div class="last-updated">Last Updated: January 2026</div>
+    </div>
+</section>
+
+<section class="content-section">
+    <div class="container">
+        <div class="card-glass">
+
+            <h2>1. Acceptance of Terms</h2>
+            <p>By accessing or using the website of Students' Gymkhana, IIT Kanpur ("Website"), you agree to be bound by these Terms of Use ("Terms"). If you do not agree with any part of these terms, you must not use the Website.</p>
+
+            <h2>2. About the Website</h2>
+            <p>This Website is owned and operated by <strong>Students' Gymkhana, Indian Institute of Technology Kanpur</strong>. It serves as an information portal for students, alumni, faculty, and visitors regarding events, activities, notices, and services of the Gymkhana.</p>
+
+            <h2>3. Eligibility</h2>
+            <p>Use of this Website is open to all visitors. However, certain services (such as event registrations, student portal access, or complaint submission) may be restricted to registered students, faculty, or authorized personnel of IIT Kanpur.</p>
+
+            <h2>4. Acceptable Use</h2>
+            <p>You agree to use the Website only for lawful purposes and in a manner that does not infringe upon the rights of others. You shall NOT:</p>
+            <ul>
+                <li>Use the Website in any way that violates applicable laws or regulations</li>
+                <li>Attempt to gain unauthorized access to any part of the Website, servers, or databases</li>
+                <li>Introduce viruses, malware, or any other harmful code</li>
+                <li>Harass, abuse, or harm other users</li>
+                <li>Post or transmit any content that is defamatory, obscene, or offensive</li>
+                <li>Use automated systems (bots, scrapers) to access the Website without permission</li>
+                <li>Interfere with or disrupt the Website's operation or servers</li>
+                <li>Impersonate any person or entity</li>
+            </ul>
+
+            <h2>5. Intellectual Property</h2>
+            <p>All content on this Website — including text, graphics, logos, images, videos, and software — is the property of Students' Gymkhana, IIT Kanpur, or its content suppliers, and is protected by applicable copyright and intellectual property laws.</p>
+            <p>You may not reproduce, distribute, modify, or republish any content without prior written permission. However, students and alumni may share content for personal, non-commercial purposes with proper attribution.</p>
+
+            <h2>6. User-Submitted Content</h2>
+            <p>If you submit content to the Website (e.g., feedback, event photos, articles), you grant us a non-exclusive, royalty-free, perpetual license to use, modify, and display such content. You are solely responsible for the content you submit and must ensure it does not violate any third-party rights.</p>
+
+            <h2>7. Third-Party Links</h2>
+            <p>Our Website may contain links to third-party websites. We do not control or endorse their content and are not responsible for their practices. Accessing them is at your own risk, subject to their own terms and conditions.</p>
+
+            <h2>8. Events and Registrations</h2>
+            <p>Registration for events (such as Antaragni, Techkriti, Udghosh) is subject to specific rules and eligibility criteria set by the respective organizing committees. Fees, once paid, may or may not be refundable depending on the event's policy.</p>
+            <p>Students' Gymkhana reserves the right to cancel, modify, or postpone any event without prior notice.</p>
+
+            <h2>9. Disclaimers</h2>
+            <p>The Website is provided on an "as is" and "as available" basis. While we strive to keep information accurate and up to date, we make no warranties or guarantees regarding:</p>
+            <ul>
+                <li>The accuracy, completeness, or reliability of any content</li>
+                <li>Uninterrupted or error-free operation of the Website</li>
+                <li>The availability of any service or event mentioned</li>
+            </ul>
+            <p>Use of the Website is at your own discretion and risk.</p>
+
+            <h2>10. Limitation of Liability</h2>
+            <p>To the fullest extent permitted by law, Students' Gymkhana, IIT Kanpur, its officers, members, and affiliates shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising from:</p>
+            <ul>
+                <li>Your use or inability to use the Website</li>
+                <li>Any errors or omissions in the content</li>
+                <li>Unauthorized access to or alteration of your data</li>
+                <li>Any third-party content accessed through the Website</li>
+            </ul>
+
+            <h2>11. Indemnification</h2>
+            <p>You agree to indemnify and hold harmless Students' Gymkhana, IIT Kanpur, and its members from any claims, losses, or damages arising from your violation of these Terms or misuse of the Website.</p>
+
+            <h2>12. Modifications to Terms</h2>
+            <p>We reserve the right to modify these Terms at any time. Updated Terms will be posted on this page with a revised "Last Updated" date. Your continued use of the Website after changes constitutes acceptance of the modified Terms.</p>
+
+            <h2>13. Termination</h2>
+            <p>We reserve the right to suspend or terminate access to the Website for any user who violates these Terms, without prior notice.</p>
+
+            <h2>14. Governing Law</h2>
+            <p>These Terms shall be governed by and construed in accordance with the laws of <strong>India</strong>. Any disputes arising shall be subject to the exclusive jurisdiction of the courts at <strong>Kanpur, Uttar Pradesh</strong>.</p>
+
+            <h2>15. Contact Information</h2>
+            <p>For any questions regarding these Terms, please contact:</p>
+            <ul>
+                <li><strong>Email:</strong> <a href="mailto:gymkhana.iitk.ac.in@gmail.com">gymkhana.iitk.ac.in@gmail.com</a></li>
+                <li><strong>Address:</strong> Students' Gymkhana, IIT Kanpur, Kanpur — 208016, Uttar Pradesh, India</li>
+            </ul>
+
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="social-links">
+            <a href="https://www.instagram.com/gymkhanaiitk" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://www.facebook.com/IITKGymkhana" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+            <a href="https://x.com/gymkhana_iitk" target="_blank"><i class="fab fa-x-twitter"></i> X</a>
+            <a href="https://www.youtube.com/@gymkhana_iitk" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+            <a href="https://linkedin.com/in/gymkhanaiitk" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="mailto:gymkhana.iitk.ac.in@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+        </div>
+        <div class="footer-links">
+            <a href="../index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Use</a>
+            <a href="disclaimer.html">Disclaimer</a>
+            <a href="../contact/contact.html">Contact</a>
+        </div>
+        <div class="copyright">&copy; 2026 Students' Gymkhana — IIT Kanpur. All rights reserved.</div>
+    </div>
+</footer>
+
+<script>
+(function() {
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
+    function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+    class Particle {
+        constructor() { this.reset(); }
+        reset() { this.x = Math.random() * w; this.y = Math.random() * h; this.size = Math.random() * 2.2 + 0.4; this.speedX = (Math.random() - 0.5) * 0.45; this.speedY = (Math.random() - 0.5) * 0.45; this.opacity = Math.random() * 0.6 + 0.2; }
+        update() { this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > w) this.speedX *= -1; if (this.y < 0 || this.y > h) this.speedY *= -1; }
+        draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(255, 215, 0, ${this.opacity})`; ctx.fill(); }
+    }
+    for (let i = 0; i < 130; i++) particles.push(new Particle());
+    function animate() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach(p => { p.update(); p.draw(); });
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                if (dist < 160) {
+                    ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = `rgba(255, 215, 0, ${0.07 * (1 - dist/160)})`; ctx.lineWidth = 0.6; ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+    animate();
+})();
+</script>
+
+<script src="/rdx/public-loader.js" defer></script>
+</body>
+</html>

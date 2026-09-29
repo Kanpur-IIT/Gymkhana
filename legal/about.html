@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>About Us – Students' Gymkhana IIT Kanpur</title>
+    <meta name="description" content="About Students' Gymkhana, IIT Kanpur — the official student government organization." />
+    <link rel="icon" type="image/png" href="../assets/images/wuj.jpg" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0a0a1a; color: #ffffff; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        #particles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .navbar { position: sticky; top: 0; z-index: 1000; background: rgba(10, 10, 26, 0.85); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255, 215, 0, 0.15); padding: 14px 0; }
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .navbar .logo { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.2rem; color: #fff; }
+        .navbar .logo img { height: 44px; border-radius: 10px; filter: drop-shadow(0 0 12px rgba(255,215,0,0.3)); }
+        .navbar .nav-links { display: flex; flex-wrap: wrap; gap: 6px 18px; list-style: none; }
+        .navbar .nav-links a { color: #b0b8d0; font-size: 0.95rem; font-weight: 500; padding: 6px 0; border-bottom: 2px solid transparent; transition: 0.25s; }
+        .navbar .nav-links a:hover { color: #ffd700; border-bottom-color: #ffd700; }
+        .navbar .social-icons { display: flex; gap: 14px; font-size: 1.15rem; }
+        .navbar .social-icons a { color: #b0b8d0; transition: 0.25s; }
+        .navbar .social-icons a:hover { color: #ffd700; transform: translateY(-2px); }
+        .hero { min-height: 30vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 40px 0 30px; background: radial-gradient(circle at top, rgba(255,215,0,0.05), transparent 70%); }
+        .hero h1 { font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #ffffff 20%, #ffd700 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 60px rgba(255, 215, 0, 0.15); }
+        .hero p { color: #a0aac0; font-size: 1.05rem; max-width: 700px; margin: 12px auto 0; line-height: 1.6; }
+        .content-section { padding: 20px 0 60px; }
+        .card-glass { background: rgba(18, 28, 50, 0.65); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 18px; padding: 32px 30px; transition: 0.3s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.2); margin-bottom: 24px; }
+        .card-glass:hover { border-color: rgba(255, 215, 0, 0.3); }
+        .card-glass h2 { font-size: 1.5rem; font-weight: 700; color: #ffd700; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+        .card-glass p { color: #b0bcc8; line-height: 1.75; font-size: 0.95rem; margin-bottom: 12px; }
+        .card-glass ul { list-style: none; padding: 0; margin: 12px 0; }
+        .card-glass ul li { padding: 8px 0 8px 26px; color: #b8c0d8; border-bottom: 1px solid rgba(255, 255, 255, 0.04); position: relative; line-height: 1.6; }
+        .card-glass ul li::before { content: '▸'; color: #ffd700; position: absolute; left: 0; font-weight: 700; }
+        .card-glass strong { color: #ffd700; }
+        .card-glass a { color: #ffd700; }
+        .footer { background: rgba(5, 5, 18, 0.95); backdrop-filter: blur(8px); border-top: 1px solid rgba(255, 215, 0, 0.08); padding: 44px 0 24px; margin-top: 60px; }
+        .footer .social-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 24px; margin: 16px 0 24px; }
+        .footer .social-links a { color: #8899bb; font-size: 0.95rem; transition: 0.25s; display: flex; align-items: center; gap: 8px; }
+        .footer .social-links a:hover { color: #ffd700; }
+        .footer .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 28px; font-size: 0.85rem; color: #667; }
+        .footer .footer-links a:hover { color: #ffd700; }
+        .footer .copyright { text-align: center; color: #556; font-size: 0.8rem; margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.04); }
+        @media (max-width: 768px) { .hero h1 { font-size: 2rem; } .navbar .nav-links { display: none; } .card-glass { padding: 24px 20px; } }
+    </style>
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<nav class="navbar">
+    <div class="container">
+        <a href="../index.html" class="logo">
+            <img src="../assets/images/wuj.jpg" alt="Gymkhana IITK" />
+            <span>Gymkhana IITK</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../gymkhana/gymkhana.html">Gymkhana</a></li>
+            <li><a href="../councils/councils.html">Councils</a></li>
+            <li><a href="../cells/cells.html">Cells</a></li>
+            <li><a href="../fests/fests.html">Fests</a></li>
+            <li><a href="../branches/branches.html">Branches</a></li>
+            <li><a href="../senate/senate.html">Senate</a></li>
+            <li><a href="../halls/halls.html">Hostels</a></li>
+            <li><a href="../gallery/gallery.html">Gallery</a></li>
+            <li><a href="../contact/contact.html">Contact</a></li>
+        </ul>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/gymkhanaiitk" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/IITKGymkhana" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://x.com/gymkhana_iitk" target="_blank"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.youtube.com/@gymkhana_iitk" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://linkedin.com/in/gymkhanaiitk" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.threads.com/@iitk_gymkhana" target="_blank"><i class="fab fa-threads"></i></a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <h1>About Us</h1>
+        <p>Students' Gymkhana — The official student government of IIT Kanpur</p>
+    </div>
+</section>
+
+<section class="content-section">
+    <div class="container">
+
+        <div class="card-glass">
+            <h2><i class="fas fa-landmark"></i> Who We Are</h2>
+            <p>The <strong>Students' Gymkhana</strong> is the official student government organization of the <strong>Indian Institute of Technology Kanpur</strong>. Established in <strong>1962</strong>, it serves as the collective voice and representative body of the entire student community.</p>
+            <p>We are a student-run organization that functions on the principles of democracy, accountability, and service. Our mission is to enhance the overall student experience at IIT Kanpur by fostering leadership, creativity, innovation, and community spirit.</p>
+        </div>
+
+        <div class="card-glass">
+            <h2><i class="fas fa-flag"></i> Our Mission</h2>
+            <p>To foster a corporate life based on equality of status and sound moral judgment, develop all-round extra-curricular activities, and advance the general welfare of fellow students.</p>
+            <p>We aim to create an inclusive environment where every student can explore their potential, express their ideas, and contribute meaningfully to campus life.</p>
+        </div>
+
+        <div class="card-glass">
+            <h2><i class="fas fa-sitemap"></i> Our Structure</h2>
+            <p>The Gymkhana operates through a well-defined structure consisting of:</p>
+            <ul>
+                <li><strong>President</strong> — Chief Executive of the Gymkhana</li>
+                <li><strong>Students' Senate</strong> — The legislative and supervisory body</li>
+                <li><strong>4 Councils</strong> — AnC, GnS, MnC, SnT</li>
+                <li><strong>5 Cells</strong> — CWC, EC, E-Cell, Outreach, Vox</li>
+                <li><strong>3 Major Fests</strong> — Antaragni, Techkriti, Udghosh</li>
+            </ul>
+        </div>
+
+        <div class="card-glass">
+            <h2><i class="fas fa-bullseye"></i> What We Do</h2>
+            <ul>
+                <li><strong>Student Governance</strong> — Representing students in administrative matters</li>
+                <li><strong>Cultural Activities</strong> — Organizing festivals, competitions, and events</li>
+                <li><strong>Sports & Games</strong> — Promoting athletic excellence and sportsmanship</li>
+                <li><strong>Science & Technology</strong> — Fostering innovation and technical skills</li>
+                <li><strong>Academic Support</strong> — Bridging students and faculty for academic welfare</li>
+                <li><strong>Student Welfare</strong> — Addressing grievances and ensuring student rights</li>
+            </ul>
+        </div>
+
+        <div class="card-glass">
+            <h2><i class="fas fa-link"></i> Connect With Us</h2>
+            <p>For any queries, suggestions, or collaboration, reach out to us:</p>
+            <ul>
+                <li><strong>Email:</strong> <a href="mailto:gymkhana.iitk.ac.in@gmail.com">gymkhana.iitk.ac.in@gmail.com</a></li>
+                <li><strong>Website:</strong> <a href="https://students.iitk.ac.in/gymkhana" target="_blank">students.iitk.ac.in/gymkhana</a></li>
+                <li><strong>Instagram:</strong> <a href="https://www.instagram.com/gymkhanaiitk" target="_blank">@gymkhanaiitk</a></li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="social-links">
+            <a href="https://www.instagram.com/gymkhanaiitk" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://www.facebook.com/IITKGymkhana" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+            <a href="https://x.com/gymkhana_iitk" target="_blank"><i class="fab fa-x-twitter"></i> X</a>
+            <a href="https://www.youtube.com/@gymkhana_iitk" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+            <a href="https://linkedin.com/in/gymkhanaiitk" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="mailto:gymkhana.iitk.ac.in@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+        </div>
+        <div class="footer-links">
+            <a href="../index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Use</a>
+            <a href="disclaimer.html">Disclaimer</a>
+            <a href="../contact/contact.html">Contact</a>
+        </div>
+        <div class="copyright">&copy; 2026 Students' Gymkhana — IIT Kanpur. All rights reserved.</div>
+    </div>
+</footer>
+
+<script>
+(function() {
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
+    function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+    class Particle {
+        constructor() { this.reset(); }
+        reset() { this.x = Math.random() * w; this.y = Math.random() * h; this.size = Math.random() * 2.2 + 0.4; this.speedX = (Math.random() - 0.5) * 0.45; this.speedY = (Math.random() - 0.5) * 0.45; this.opacity = Math.random() * 0.6 + 0.2; }
+        update() { this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > w) this.speedX *= -1; if (this.y < 0 || this.y > h) this.speedY *= -1; }
+        draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(255, 215, 0, ${this.opacity})`; ctx.fill(); }
+    }
+    for (let i = 0; i < 130; i++) particles.push(new Particle());
+    function animate() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach(p => { p.update(); p.draw(); });
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                if (dist < 160) {
+                    ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = `rgba(255, 215, 0, ${0.07 * (1 - dist/160)})`; ctx.lineWidth = 0.6; ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+    animate();
+})();
+</script>
+
+<script src="/rdx/public-loader.js" defer></script>
+</body>
+</html>
