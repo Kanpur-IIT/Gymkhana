@@ -4,7 +4,7 @@
 
 ### 🌐 लाइव लिंक्स (Live Links)
 
-* **लाइव वेबसाइट:** [https://gymkhanaiitk.vercel.app/](https://gymkhanaiitk.vercel.app/)
+* **लाइव वेबसाइट:** [https://www.sgiitk.mywire.org/](https://www.sgiitk.mywire.org/)
 * **गिटहब रिपोजिटरी:** [https://github.com/Kanpur-IIT/Gymkhana](https://github.com/Kanpur-IIT/Gymkhana)
 
 ### 🎯 मुख्य अनुभाग (Website Sections)
