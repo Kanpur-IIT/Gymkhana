@@ -37,7 +37,7 @@ function loadDashboard(user) {
     const userInfo = document.getElementById('userInfo');
     if (userInfo) {
         userInfo.innerHTML = `
-            <img src="${user.photoURL || '../assets/images/wuj.jpg'}" alt="Avatar" class="user-avatar" />
+            <img src="${user.photoURL || '../assets/images/sgiitk.gif'}" alt="Avatar" class="user-avatar" />
             <span class="user-email">${user.email}</span>
         `;
     }
